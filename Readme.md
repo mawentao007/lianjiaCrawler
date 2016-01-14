@@ -1,0 +1,1 @@
+scrapy crawl <spider name> -o file.csv -t csv    输出特定类型

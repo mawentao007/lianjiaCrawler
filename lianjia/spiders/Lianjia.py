@@ -1,6 +1,5 @@
 #encoding=utf-8
 
-#一个初级版本，使用自己的cookie，爬.cn下的数据。cookie请自行获取谢谢。
 
 
 import scrapy
@@ -26,7 +25,7 @@ class LianjiaSpider(scrapy.Spider):
         def parse(self, response):
             #css方式选取元素
             #注意爬取手机版，.cn后缀
-            for  page in range(1,10):
+            for  page in range(1,2):
                 time.sleep(2)
                 url = "http://txdai.com/zhongchou/NewHouseList/Index.do?page=" + str(page)
                 yield scrapy.Request(url,headers=self.user_agent,callback=self.parse_dir_contents)
@@ -35,6 +34,8 @@ class LianjiaSpider(scrapy.Spider):
             #xpath方式选取元素
             #encode('utf-8')修改编码方式  解析出的部分是子html文件，可以继续解析
             all = {}
+            test = response.xpath('//div/div[@class="pj_info"]/a/span/text()').extract()
+            logger.info(test)
             data = response.xpath('//div[@class="mainwrap tf"]/div/div[@class="parents w1000 tf"]/ul/li[@class="p_li clearfix"]')
             for sel in data:
                 item = LianjiaItem()

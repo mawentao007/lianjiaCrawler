@@ -11,3 +11,11 @@ class CSVkwItemExporter(CsvItemExporter):
         kwargs['encoding'] = settings.get('EXPORT_ENCODING', 'utf-8')
 
         super(CSVkwItemExporter, self).__init__(*args, **kwargs)
+
+class CSVGoldItemExporter(CsvItemExporter):
+
+    def __init__(self, *args, **kwargs):
+        kwargs['fields_to_export'] = settings.getlist('EXPORT_FIELDS_GOLD') or None
+        kwargs['encoding'] = settings.get('EXPORT_ENCODING', 'utf-8')
+
+        super(CSVGoldItemExporter, self).__init__(*args, **kwargs)

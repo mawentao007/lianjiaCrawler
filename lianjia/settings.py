@@ -15,7 +15,8 @@ SPIDER_MODULES = ['lianjia.spiders']
 NEWSPIDER_MODULE = 'lianjia.spiders'
 
 FEED_EXPORTERS = {
-    'csv': 'lianjia.feedExporter.CSVkwItemExporter'
+    'csv': 'lianjia.feedExporter.CSVkwItemExporter',
+    'gold': 'lianjia.feedExporter.CSVGoldItemExporter'
 }
 
 EXPORT_FIELDS = [
@@ -25,6 +26,15 @@ EXPORT_FIELDS = [
     'amount',
     'num_person',
     'progress'
+]
+
+EXPORT_FIELDS_GOLD = [
+    'name',
+    'amount',
+    'time',
+    'benefit',
+    'percentage',
+    'minium'
 ]
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'lianjia (+http://www.yourdomain.com)'

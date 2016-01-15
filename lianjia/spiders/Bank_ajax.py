@@ -12,6 +12,9 @@ from scrapy.selector import Selector
 logger = logging.getLogger('BankLogger')
 class GoldSpider(scrapy.Spider):
         name = "bank"
+        def __init__(self,page,projectName="70"):
+            self.projectName = projectName
+            self.page = int(page)
 
 
         #必须感谢想出这个办法的人，模仿搜索引擎，爬取pc版有效，但是pc版要解析js
@@ -26,14 +29,19 @@ class GoldSpider(scrapy.Spider):
         def parse(self, response):
             #css方式选取元素
             #注意爬取手机版，.cn后缀
-            for  page in range(1,11):
+            for  page in range(1,self.page+1):
                 time.sleep(1)
                 url = "http://www.fanglbb.com/front/homeAction/ajaxFundList"
-                body70 = {'id':"12",'pageSize':"10",'currPage':str(page)}
-                body90 = {'id':'14','pageSize':'10','currPage':str(page)}
-                body95 = {'id':'16','pageSize':'10','currPage':str(page)}
+                if self.projectName == "70":
+                    body = {'id':"12",'pageSize':"10",'currPage':str(page)}
+                elif self.projectName == "90":
+                    body = {'id':'14','pageSize':'10','currPage':str(page)}
+                elif self.projectName == '95':
+                    body = {'id':'16','pageSize':'10','currPage':str(page)}
+                else:
+                    logger.error("wrong parameters!")
                 #注意请求的格式，用FormRequest
-                yield scrapy.FormRequest(url,method="POST",formdata=body95,callback=self.parse_dir_contents)
+                yield scrapy.FormRequest(url,method="POST",formdata=body,callback=self.parse_dir_contents)
 
         def parse_dir_contents(self, response):
             sel = response.xpath('//table/tr[@height="42"]')

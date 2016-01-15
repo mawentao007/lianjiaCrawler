@@ -16,7 +16,8 @@ NEWSPIDER_MODULE = 'lianjia.spiders'
 
 FEED_EXPORTERS = {
     'csv': 'lianjia.feedExporter.CSVkwItemExporter',
-    'gold': 'lianjia.feedExporter.CSVGoldItemExporter'
+    'gold': 'lianjia.feedExporter.CSVGoldItemExporter',
+    'bank':'lianjia.feedExporter.CSVBankItemExporter'
 }
 
 EXPORT_FIELDS = [
@@ -36,6 +37,17 @@ EXPORT_FIELDS_GOLD = [
     'percentage',
     'minium'
 ]
+
+EXPORT_FIELDS_BANK = [
+    'name',
+    'amount',
+    'personNum',
+    'benefit',
+    'allBenefit',
+    'state'
+]
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'lianjia (+http://www.yourdomain.com)'
 
